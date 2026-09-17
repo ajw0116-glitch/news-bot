@@ -20,7 +20,7 @@ FEEDS = [
     ("한국경제 금융",   "https://www.hankyung.com/feed/finance"),
     ("매일경제 경제",   "https://www.mk.co.kr/rss/30100041/"),
     ("매일경제 증권",   "https://www.mk.co.kr/rss/50200011/"),
-    ("금융위원회",      "http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111"),
+   # ("금융위원회",      "http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111"),
     # --- 미국 ---
     ("Fed 통화정책",    "https://www.federalreserve.gov/feeds/press_monetary.xml"),
     ("Fed 보도자료",    "https://www.federalreserve.gov/feeds/press_all.xml"),
