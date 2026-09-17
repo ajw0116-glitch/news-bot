@@ -161,8 +161,10 @@ def summarize(items):
         "x-goog-api-key": GEMINI_API_KEY,
         "Content-Type": "application/json",
     }
-    body = {"contents": [{"parts": [{"text": prompt}]}]}
-
+    body = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.3},
+    }
     try:
         res = requests.post(url, headers=headers, json=body, timeout=90)
         if res.status_code != 200:
