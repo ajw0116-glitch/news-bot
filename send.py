@@ -1,3 +1,4 @@
+import time
 import os
 import requests
 import feedparser
@@ -126,6 +127,39 @@ def summarize(items):
         "generationConfig": {"temperature": config.TEMPERATURE},
     }
 
+    # 일시적 오류(서버 혼잡, 한도)는 기다렸다 다시 시도한다.
+    RETRY_CODES = {429, 500, 502, 503, 504}
+    WAITS = [20, 60, 120]   # 1차 실패 후 20초, 2차 후 60초, 3차 후 120초 대기
+
+    for attempt in range(len(WAITS) + 1):
+        try:
+            res = requests.post(url, headers=headers, json=body, timeout=90)
+
+            if res.status_code == 200:
+                data = res.json()
+                text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+                if attempt > 0:
+                    print(f"{attempt + 1}번째 시도에서 성공")
+                return text
+
+            print(f"AI 응답 오류 ({attempt + 1}회차): {res.status_code} {res.text[:300]}")
+
+            # 되풀이해도 소용없는 오류(모델명 오류 등)는 즉시 포기
+            if res.status_code not in RETRY_CODES:
+                return None
+
+        except Exception as e:
+            print(f"AI 호출 실패 ({attempt + 1}회차): {type(e).__name__} {e}")
+
+        # 마지막 시도였으면 더 기다리지 않는다
+        if attempt < len(WAITS):
+            wait = WAITS[attempt]
+            print(f"{wait}초 후 재시도합니다...")
+            time.sleep(wait)
+
+    print("재시도를 모두 소진했습니다.")
+    return None
+    
     try:
         res = requests.post(url, headers=headers, json=body, timeout=90)
         if res.status_code != 200:
