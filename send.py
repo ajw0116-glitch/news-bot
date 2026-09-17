@@ -11,7 +11,7 @@ GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 KST = timezone(timedelta(hours=9))
 
 # ========== 설정 (여기만 바꾸면 됩니다) ==========
-MODEL = "gemini-2.0-flash"   # ← 작업 2에서 확인한 이름으로 바꾸세요
+MODEL = "gemini-3.7-flash"   # ← 작업 2에서 확인한 이름으로 바꾸세요
 HOURS = 24                   # 최근 몇 시간 내 기사만 볼지
 MAX_PER_FEED = 6             # 소스 하나당 최대 몇 건까지 가져올지
 TARGET_COUNT = 10            # 최종 브리핑에 담을 뉴스 개수
@@ -22,7 +22,7 @@ FEEDS = [
     ("한국경제 경제",   "https://www.hankyung.com/feed/economy"),
     ("한국경제 금융",   "https://www.hankyung.com/feed/finance"),
     ("매일경제 경제",   "https://www.mk.co.kr/rss/30100041/"),
-    ("금융위원회",      "http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111"),
+   # ("금융위원회",      "http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111"),
     # --- 미국 ---
     ("Fed 통화정책",    "https://www.federalreserve.gov/feeds/press_monetary.xml"),
     ("Fed 보도자료",    "https://www.federalreserve.gov/feeds/press_all.xml"),
